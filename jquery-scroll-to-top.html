@@ -1,0 +1,67 @@
+<div id="scroll-to-top">&#x21E7;</div>
+
+
+<style>
+#scroll-to-top:hover {
+    background: #9e0a1c;
+}
+#scroll-to-top {
+    width: 30px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #d6283d;
+    color: white;
+    text-shadow: 1px 1px 1px #010101;
+    padding: 0px 5px 5px 5px;
+    font-size: 30px;
+    cursor: pointer;
+    transition: .5s all;
+    display: none;
+}
+</style>
+
+<script>
+jQuery(document).ready(function(){
+
+	var scrollToTop = $('#scroll-to-top');
+	var bottomCointainer = $('#main-footer');
+	var bottomCointainerHeight = 0;
+
+	// check to see if the window is top if not then display button
+	$(window).scroll(function(){
+
+		bottomCointainerHeight = bottomCointainer.outerHeight();
+
+		// visibility
+		if ($(this).scrollTop() > 100 && $(document).height() > 2000) {
+			scrollToTop.fadeIn();
+		} else {
+			scrollToTop.fadeOut();
+		}
+		
+		// check if bottom
+		if($(this).scrollTop() + $(this).height() >=  $(document).height() - bottomCointainerHeight ) {
+	       scrollToTop.addClass('bottom');
+	      
+	       if ($(window).width() > 768){
+	             scrollToTop.css('bottom', (bottomCointainerHeight + 15) + 'px');
+	       }else{
+	             scrollToTop.css('bottom', (bottomCointainerHeight - (15 + scrollToTop.height()) ) + 'px');
+	       }
+
+	    }else{
+	       scrollToTop.removeClass('bottom');
+	       scrollToTop.css('bottom', '15px');
+	       
+	    }
+
+	});
+
+	//Click event to scroll to top
+	scrollToTop.click(function(){
+		$('html, body').animate({scrollTop : 0},800);
+		return false;
+	});
+});
+</script>
